@@ -18,4 +18,9 @@ check: selfcheck test lint
 build: check
 	poetry build
 
+upgrade:
+	poetry build
+	poetry publish --dry-run
+	python3 -m pip install --user --force-reinstall dist/*.whl
+
 .PHONY: install test lint selfcheck check build
