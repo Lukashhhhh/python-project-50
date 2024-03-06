@@ -14,12 +14,11 @@ def get_diff(data1, data2):
         else:
             result += (
                 f'  - {key}: {data1.get(key)}\n'
-                f'  + {key}: {data2.get(key)}\n'
-                )
+                f'  + {key}: {data2.get(key)}\n')
     result += '}'
     return result
 
- 
+
 def generate_diff(file_path1, file_path2):
     data_file1 = get_file_data(file_path1)
     data_file2 = get_file_data(file_path2)

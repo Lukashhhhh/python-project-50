@@ -15,4 +15,4 @@ def get_file_data(file_path):
             case '.json':
                 return json.load(path)
             case '.yml' | '.yaml':
-                return yaml.safe_load(path)      
+                return yaml.safe_load(path)
