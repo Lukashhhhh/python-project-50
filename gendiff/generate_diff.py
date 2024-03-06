@@ -1,4 +1,4 @@
-import json
+from gendiff.read_file import get_file_data
 
 
 def get_diff(data1, data2):
@@ -19,9 +19,8 @@ def get_diff(data1, data2):
     result += '}'
     return result
 
-
+ 
 def generate_diff(file_path1, file_path2):
-    with open(file_path1) as data1, open(file_path2) as data2:
-        file1 = json.load(data1)
-        file2 = json.load(data2)
-    return get_diff(file1, file2)
+    data_file1 = get_file_data(file_path1)
+    data_file2 = get_file_data(file_path2)
+    return get_diff(data_file1, data_file2)
