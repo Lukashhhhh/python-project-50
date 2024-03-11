@@ -1,8 +1,9 @@
 [tool.poetry]
 name = "hexlet-code"
 version = "0.1.0"
-description = ""
+description = "Comparison of the original and the modified document in json or yml format and output of differences."
 authors = ["ivan <iv1uk@yandex.ru>"]
+license = "free"
 readme = "README.md"
 packages = [
   { include = "gendiff" },
