@@ -25,21 +25,26 @@ def get_formated_diff(data):
             if isinstance(value, dict) and 'status' in value:
                 match value['status']:
                     case 'nested' | 'unchanged':
-                        result += f'\n{gen_indent}{OPERATOR["unchanged"]} {key}: '
+                        result += (f'\n{gen_indent}'
+                                   f'{OPERATOR["unchanged"]} {key}: ')
                     case 'added':
                         result += f'\n{gen_indent}{OPERATOR["added"]} {key}: '
                     case 'deleted':
                         result += f'\n{gen_indent}{OPERATOR["deleted"]} {key}: '
                     case 'changed':
-                        # child1 and child2 - keys indicating the difference with a common primary key 
+                        # child1 and child2 - keys indicating the difference
+                        # with a common primary key
                         child1, child2 = value["child1"], value["child2"]
                         result += (
-                            f'\n{gen_indent}{OPERATOR["deleted"]} {key}: {iner_(child1, depth + 1)}\n'
-                            f'{gen_indent}{OPERATOR["added"]} {key}: {iner_(child2, depth + 1)}')
+                            f'\n{gen_indent}{OPERATOR["deleted"]} {key}: '
+                            f'{iner_(child1, depth + 1)}\n'
+                            f'{gen_indent}{OPERATOR["added"]} {key}: '
+                            f'{iner_(child2, depth + 1)}')
                         continue
                 children = value['children']
                 result += iner_(children, depth + 1)
             else:
-                result += f'\n{gen_indent}{OPERATOR["unchanged"]} {key}: {iner_(value, depth + 1)}'
+                result += (f'\n{gen_indent}{OPERATOR["unchanged"]} {key}: '
+                           f'{iner_(value, depth + 1)}')
         return result + ('\n' + depth * NUMBER_OF_INDENTS + '}')
     return iner_(data)

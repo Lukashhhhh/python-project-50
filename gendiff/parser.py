@@ -26,5 +26,3 @@ def get_sorted_data(data1, data2):
             }
     sorted_diff = dict(sorted(result.items()))
     return sorted_diff
-
-
