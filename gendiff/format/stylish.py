@@ -14,7 +14,7 @@ def get_formated_data(data):
     return data
 
 
-def get_formated_diff(data):
+def get_formated_stylish(data):
     def iner_(current_value, depth=CURRENT_DEPTH):
         if not isinstance(current_value, dict):
             # current_value = get_formated_data(current_value)
