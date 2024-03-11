@@ -23,4 +23,4 @@ upgrade:
 	poetry publish --dry-run
 	python3 -m pip install --user --force-reinstall dist/*.whl
 
-.PHONY: install test lint selfcheck check build
+.PHONY: gendiff
