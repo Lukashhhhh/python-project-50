@@ -1,5 +1,5 @@
-import pytest
 from gendiff import generate_diff
+import pytest
 
 
 @pytest.mark.parametrize("file_path1, file_path2", [

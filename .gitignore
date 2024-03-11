@@ -6,3 +6,7 @@ dist/
 .coverage
 coverage.xml
 .pytest_cache/
+main.py
+.replit
+replit.nix
+.breakpoints
