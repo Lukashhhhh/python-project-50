@@ -25,6 +25,7 @@ pip install git+https://github.com/Lukashhhhh/python-project-50.git
 [![asciicast](https://asciinema.org/a/LJreYd8SyejWuBDENBTZvlGcH.svg)](https://asciinema.org/a/LJreYd8SyejWuBDENBTZvlGcH)
 
 ### Сравнение двух файлов с вложенной структурой в форматах '.json', '.yml', '.yaml'  и вывод в формате plain
-
+[![asciicast](https://asciinema.org/a/MdJD9pWu2b0b1XMm5r5Xf2hOb.svg)](https://asciinema.org/a/MdJD9pWu2b0b1XMm5r5Xf2hOb)
 
 ### Сравнение двух файлов с вложенной структурой в форматах '.json', '.yml', '.yaml'  и вывод в формате json
+[![asciicast](https://asciinema.org/a/Jbf381vHdHrmQq9HHOsAhkUQH.svg)](https://asciinema.org/a/Jbf381vHdHrmQq9HHOsAhkUQH)
