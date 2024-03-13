@@ -1,17 +1,17 @@
-def get_formated_data(data):
+def get_correct_format(value):
     format_ = {
-        bool: str(data).lower(),
+        bool: str(value).lower(),
         type(None): 'null',
     }
-    if type(data) in format_:
-        return format_[type(data)]
-    return f"'{data}'"
+    if type(value) in format_:
+        return format_[type(value)]
+    return f"'{value}'"
 
 
-def get_formated_plain(data):
+def get_format_plain(data):
     def iner_(current_value, path=[]):
         if not isinstance(current_value, dict):
-            return get_formated_data(current_value)
+            return get_correct_format(current_value)
         result = []
         for key, value in current_value.items():
             if isinstance(current_value, dict) and 'status' in value:
