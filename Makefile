@@ -1,6 +1,6 @@
 .PHONY: gendiff
 
-nstall:
+install:
 	poetry install
 
 test:
