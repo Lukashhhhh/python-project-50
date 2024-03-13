@@ -5,7 +5,7 @@ from gendiff.format.stylish import get_formated_stylish
 from gendiff.format.plain import get_formated_plain
 
 
-def generate_diff(file_path1, file_path2, format_name: str):
+def generate_diff(file_path1, file_path2, format_name='stylish'):
     data_file1 = get_file_data(file_path1)
     data_file2 = get_file_data(file_path2)
     sorted_diff = get_sorted_data(data_file1, data_file2)
