@@ -1,5 +1,6 @@
 from gendiff.read_file import get_file_data
 from gendiff.parser import get_sorted_data
+from gendiff.format.json import get_formated_json
 from gendiff.format.stylish import get_formated_stylish
 from gendiff.format.plain import get_formated_plain
 
@@ -13,4 +14,6 @@ def generate_diff(file_path1, file_path2, format_name: str):
             formated_data = get_formated_stylish(sorted_diff)
         case 'plain':
             formated_data = get_formated_plain(sorted_diff)
+        case 'json':
+            formated_data = get_formated_json(sorted_diff)
     return formated_data
