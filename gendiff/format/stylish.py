@@ -4,21 +4,21 @@ CURRENT_DEPTH = 0
 SIGN = {'added': '+', 'deleted': '-', 'unchanged': ' '}
 
 
-def get_formated_data(data):
+def get_correct_format(value):
     format_ = {
-        bool: str(data).lower(),
+        bool: str(value).lower(),
         type(None): 'null'
     }
-    if type(data) in format_:
-        return format_[type(data)]
-    return str(data)
+    if type(value) in format_:
+        return format_[type(value)]
+    return str(value)
 
 
-def get_formated_stylish(data):
+def get_format_stylish(data):
     def iner_(current_value, depth=CURRENT_DEPTH):
         if not isinstance(current_value, dict):
             # current_value = get_formated_data(current_value)
-            return f'{get_formated_data(current_value)}'
+            return f'{get_correct_format(current_value)}'
         result = '{'
         gen_indent = depth * NUMBER_OF_INDENTS + OFFSET_TO_THE_LEFT
         for key, value in current_value.items():
