@@ -2,10 +2,11 @@ def get_correct_format(value):
     format_ = {
         bool: str(value).lower(),
         type(None): 'null',
+        str: f"'{value}'"
     }
     if type(value) in format_:
         return format_[type(value)]
-    return f"'{value}'"
+    return value
 
 
 def get_format_plain(data):
