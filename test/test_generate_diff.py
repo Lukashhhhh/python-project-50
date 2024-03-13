@@ -9,8 +9,7 @@ import pytest
 def test_generate_diff_stylish(file_path1, file_path2):
     result_stylish_path = 'test/fixtures/result_file_stylish.txt'
     with open(result_stylish_path) as stylish_result:
-        assert generate_diff(file_path1, file_path2, 
-                             format_name='stylish') == stylish_result.read()
+        assert generate_diff(file_path1, file_path2) == stylish_result.read()
 
 
 @pytest.mark.parametrize("file_path1, file_path2", [
