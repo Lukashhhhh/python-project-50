@@ -23,3 +23,8 @@ pip install git+https://github.com/Lukashhhhh/python-project-50.git
 
 ### Сравнение двух файлов с вложенной структурой в форматах '.json', '.yml', '.yaml'  и вывод в формате stylish
 [![asciicast](https://asciinema.org/a/LJreYd8SyejWuBDENBTZvlGcH.svg)](https://asciinema.org/a/LJreYd8SyejWuBDENBTZvlGcH)
+
+### Сравнение двух файлов с вложенной структурой в форматах '.json', '.yml', '.yaml'  и вывод в формате plain
+
+
+### Сравнение двух файлов с вложенной структурой в форматах '.json', '.yml', '.yaml'  и вывод в формате json
