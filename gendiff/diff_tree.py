@@ -1,4 +1,4 @@
-def get_sorted_diff(data1, data2):
+def build_diff_tree(data1, data2):
     result = {}
     keys = data1.keys() | data2.keys()
     for key in keys:
@@ -17,7 +17,7 @@ def get_sorted_diff(data1, data2):
         elif isinstance(data1[key], dict) and isinstance(data2[key], dict):
             result[key] = {
                 'status': 'nested',
-                'children': get_sorted_diff(data1[key], data2[key])}
+                'children': build_diff_tree(data1[key], data2[key])}
         else:
             result[key] = {
                 'status': 'changed',
