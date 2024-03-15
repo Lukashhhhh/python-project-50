@@ -9,41 +9,37 @@ def get_correct_format(value):
     return value
 
 
-def get_format_plain(data):
-    def iner_(current_value, path=[]):
-        if not isinstance(current_value, dict):
-            return get_correct_format(current_value)
-        result = []
-        for key, value in current_value.items():
-            if isinstance(current_value, dict) and 'status' in value:
-                path.append(key)
-                current_path = '.'.join(path)
-                match value['status']:
-                    case 'added':
-                        children = value['children']
-                        result.append(
-                            f"Property '{current_path}' was added with "
-                            f"value: {iner_(children, path)}"
-                        )
-                        path.pop()
-                    case 'deleted':
-                        result.append(f"Property '{current_path}' was removed")
-                        path.pop()
-                    case 'changed':
-                        child1, child2 = value['child1'], value['child2']
-                        result.append(
-                            f"Property '{current_path}' was updated. "
-                            f"From {iner_(child1)} to {iner_(child2)}"
-                        )
-                        path.pop()
-                    case 'nested':
-                        children = value['children']
-                        result.append(iner_(children, path))
-                        path.pop()
-                    case 'unchanged':
-                        path.pop()
-                        continue
-            else:
-                return '[complex value]'
-        return '\n'.join(result)
-    return iner_(data)
+def get_format_plain(current_value, path=[]):
+    if not isinstance(current_value, dict):
+        return get_correct_format(current_value)
+    result = []
+    for key, value in current_value.items():
+        if isinstance(current_value, dict) and 'status' in value:
+            path.append(key)
+            current_path = '.'.join(path)
+            match value['status']:
+                case 'added':
+                    children = value['children']
+                    result.append(
+                        f"Property '{current_path}' was added with "
+                        f"value: {get_format_plain(children, path)}"
+                    )
+                case 'deleted':
+                    result.append(f"Property '{current_path}' was removed")
+                case 'changed':
+                    child1, child2 = value['child1'], value['child2']
+                    result.append(
+                        f"Property '{current_path}' was updated. "
+                        f"From {get_format_plain(child1)} to "
+                        f"{get_format_plain(child2)}"
+                    )
+                case 'nested':
+                    children = value['children']
+                    result.append(get_format_plain(children, path))
+                case 'unchanged':
+                    path.pop()
+                    continue
+            path.pop()
+        else:
+            return '[complex value]'
+    return '\n'.join(result)
