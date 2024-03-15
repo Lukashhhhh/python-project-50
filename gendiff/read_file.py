@@ -7,6 +7,7 @@ def get_file_data(file_path: str):
     _, expansion = os.path.splitext(file_path)
     return extract_data_from_file(file_path, expansion)
 
+
 def extract_data_from_file(file_path: str, expansion: str):
     match expansion:
         case '.json':
