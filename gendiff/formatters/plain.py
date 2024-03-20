@@ -1,7 +1,9 @@
 def transform_to_str(value):
-    format_ = {bool: str(value).lower(), type(None): 'null', str: f"'{value}'"}
-    if type(value) in format_:
-        return format_[type(value)]
+    format_ = {bool: str(value).lower(), type(None): 'null',
+               str: f"'{value}'", dict: '[complex value]'}
+    str_value = format_.get(type(value))
+    if str_value:
+        return str_value
     return str(value)
 
 
@@ -17,18 +19,18 @@ def get_format_plain(current_value, path=[]):
                 case 'added':
                     children = value['children']
                     result.append(f"Property '{current_path}' was added with "
-                                  f"value: {get_format_plain(children, path)}")
+                                  f"value: {transform_to_str(children)}")
                 case 'deleted':
                     result.append(f"Property '{current_path}' was removed")
                 case 'changed':
                     child1, child2 = value['child1'], value['child2']
                     result.append(f"Property '{current_path}' was updated. "
-                                  f"From {get_format_plain(child1)} to "
-                                  f"{get_format_plain(child2)}")
+                                  f"From {transform_to_str(child1)} to "
+                                  f"{transform_to_str(child2)}")
                 case 'nested':
                     children = value['children']
                     result.append(get_format_plain(children, path))
             path.pop()
         else:
-            return '[complex value]'
+            return transform_to_str(current_value)
     return '\n'.join(result)
