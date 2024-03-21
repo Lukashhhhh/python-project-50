@@ -1,6 +1,7 @@
 from gendiff import generate_diff
 import pytest
 
+
 @pytest.mark.parametrize("file_path1, file_path2", [
     ('test/fixtures/file1.json', 'test/fixtures/file2.json'),
     ('test/fixtures/file1.yml', 'test/fixtures/file2.yml'),
