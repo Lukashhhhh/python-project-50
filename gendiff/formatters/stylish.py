@@ -4,30 +4,23 @@ START_DEPTH = 0
 SIGN = {'added': '+ ', 'deleted': '- ', 'unchanged': '  '}
 
 
-def dict_to_str(dict_value: dict, depth):
-    result = []
-    close_indent = depth * NUMBER_OF_INDENTS + '}'
-    str_indent = depth * NUMBER_OF_INDENTS + OFFSET_TO_THE_LEFT
-    for key, value in dict_value.items():
-        if isinstance(value, dict):
-            result.append(f'{str_indent}{SIGN["unchanged"]}{key}: '
-                          f'{dict_to_str(value, depth + 1)}')
-        else:
-            result.append(f'{str_indent}{SIGN["unchanged"]}{key}: {value}')
-    return '{\n' + '\n'.join(result) + f'\n{close_indent}'
-
-
-def transform_to_str(value, depth=START_DEPTH):
-    if isinstance(value, dict):
-        return dict_to_str(value, depth)
-    format_ = {
-        bool: str(value).lower(),
+def transform_to_str(changeable_value, depth=START_DEPTH):
+    if isinstance(changeable_value, dict):
+        result = []
+        close_indent = depth * NUMBER_OF_INDENTS + '}'
+        str_indent = depth * NUMBER_OF_INDENTS + OFFSET_TO_THE_LEFT
+        for key, value in changeable_value.items():
+            if isinstance(value, dict):
+                result.append(f'{str_indent}{SIGN["unchanged"]}{key}: '
+                              f'{transform_to_str(value, depth + 1)}')
+            else:
+                result.append(f'{str_indent}{SIGN["unchanged"]}{key}: {value}')
+        return '{\n' + '\n'.join(result) + f'\n{close_indent}'
+    dict_changes = {
+        bool: str(changeable_value).lower(),
         type(None): 'null',
     }
-    str_value = format_.get(type(value))
-    if str_value:
-        return str_value
-    return str(value)
+    return dict_changes.get(type(changeable_value), str(changeable_value))
 
 
 def get_format_stylish(current_value, depth=START_DEPTH):
@@ -42,21 +35,22 @@ def get_format_stylish(current_value, depth=START_DEPTH):
                     result.append(f'{str_indent}{SIGN["unchanged"]}{key}: '
                                   f'{get_format_stylish(children, depth + 1)}')
                 case 'added':
-                    children = value['children']
+                    add_value = value["value"]
                     result.append(f'{str_indent}{SIGN["added"]}{key}: '
-                                  f'{transform_to_str(children, depth + 1)}')
+                                  f'{transform_to_str(add_value, depth + 1)}')
                 case 'deleted':
-                    children = value['children']
+                    del_value = value["value"]
                     result.append(f'{str_indent}{SIGN["deleted"]}{key}: '
-                                  f'{transform_to_str(children, depth + 1)}')
+                                  f'{transform_to_str(del_value, depth + 1)}')
                 case 'changed':
-                    child1, child2 = value["child1"], value["child2"]
+                    old_value = value["old_value"]
+                    new_value = value["new_value"]
                     result.append(f'{str_indent}{SIGN["deleted"]}{key}: '
-                                  f'{transform_to_str(child1, depth + 1)}\n'
+                                  f'{transform_to_str(old_value, depth + 1)}\n'
                                   f'{str_indent}{SIGN["added"]}{key}: '
-                                  f'{transform_to_str(child2, depth + 1)}')
+                                  f'{transform_to_str(new_value, depth + 1)}')
                 case 'unchanged':
-                    children = value['children']
+                    unch_value = value["value"]
                     result.append(f'{str_indent}{SIGN["unchanged"]}{key}: '
-                                  f'{transform_to_str(children, depth + 1)}')
+                                  f'{transform_to_str(unch_value, depth + 1)}')
     return '{\n' + '\n'.join(result) + f'\n{close_indent}'
