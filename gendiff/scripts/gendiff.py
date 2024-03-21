@@ -2,6 +2,13 @@ from gendiff import generate_diff
 import argparse
 
 
+def check_format(format):
+    if argparse.ArgumentTypeError():
+        print('You have entered an incorrect format. '
+              'Output in default format')
+        return 'stylish'
+
+
 def main():
     parser = argparse.ArgumentParser(
         prog='gendiff',
@@ -12,7 +19,8 @@ def main():
         '-f', '--format',
         help='set format of output',
         default='stylish',
-        choices=['stylish', 'plain', 'json']
+        choices=['stylish', 'plain', 'json'],
+        type=check_format
     )
 
     args = parser.parse_args()
