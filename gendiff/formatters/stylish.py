@@ -10,7 +10,8 @@ def dict_to_str(dict_value: dict, depth):
     str_indent = depth * NUMBER_OF_INDENTS + OFFSET_TO_THE_LEFT
     for key, value in dict_value.items():
         if isinstance(value, dict):
-            result.append(f'{str_indent}{SIGN["unchanged"]}{key}: {dict_to_str(value, depth + 1)}')
+            result.append(f'{str_indent}{SIGN["unchanged"]}{key}: '
+                          f'{dict_to_str(value, depth + 1)}')
         else:
             result.append(f'{str_indent}{SIGN["unchanged"]}{key}: {value}')
     return '{\n' + '\n'.join(result) + f'\n{close_indent}'
@@ -19,9 +20,10 @@ def dict_to_str(dict_value: dict, depth):
 def transform_to_str(value, depth=START_DEPTH):
     if isinstance(value, dict):
         return dict_to_str(value, depth)
-    format_ = {bool: str(value).lower(),
-               type(None): 'null',
-              }
+    format_ = {
+        bool: str(value).lower(),
+        type(None): 'null',
+    }
     str_value = format_.get(type(value))
     if str_value:
         return str_value
@@ -56,5 +58,5 @@ def get_format_stylish(current_value, depth=START_DEPTH):
                 case 'unchanged':
                     children = value['children']
                     result.append(f'{str_indent}{SIGN["unchanged"]}{key}: '
-                                   f'{transform_to_str(children, depth + 1)}')
+                                  f'{transform_to_str(children, depth + 1)}')
     return '{\n' + '\n'.join(result) + f'\n{close_indent}'
