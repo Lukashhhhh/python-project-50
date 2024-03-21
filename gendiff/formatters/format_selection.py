@@ -12,6 +12,4 @@ def get_formated_data(format, data):
         case 'json':
             return get_format_json(data)
         case _:
-            print('You have entered an incorrect format. '
-                  'Output in default format')
-            return get_format_stylish(data)
+            raise ValueError('Invalid format')
