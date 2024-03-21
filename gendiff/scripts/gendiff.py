@@ -2,8 +2,11 @@ from gendiff import generate_diff
 import argparse
 
 
+FORMAT_LIST = ['stylish', 'plain', 'json']
+
+
 def check_format(format):
-    if format not in ['stylish', 'plain', 'json']:
+    if format not in FORMAT_LIST:
         print('You have entered an incorrect format. '
               'Output in default format')
         return 'stylish'
@@ -20,7 +23,7 @@ def main():
         '-f', '--format',
         help='set format of output',
         default='stylish',
-        choices=['stylish', 'plain', 'json'],
+        choices=FORMAT_LIST,
         type=check_format
     )
 
