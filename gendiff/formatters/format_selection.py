@@ -3,7 +3,7 @@ from gendiff.formatters.stylish import get_format_stylish
 from gendiff.formatters.plain import get_format_plain
 
 
-def get_formated_data(format, data):
+def apply_formatter(format, data):
     match format:
         case 'stylish':
             return get_format_stylish(data)
