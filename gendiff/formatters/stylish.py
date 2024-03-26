@@ -4,27 +4,28 @@ START_DEPTH = 0
 SIGN = {'added': '+ ', 'deleted': '- ', 'unchanged': '  '}
 
 
-def transform_to_str(changeable_value, depth=START_DEPTH):
-    if isinstance(changeable_value, dict):
-        result = []
+def transform_to_str(value, depth=START_DEPTH):
+    if isinstance(value, dict):
+        result = ['{']
         close_indent = depth * NUMBER_OF_INDENTS + '}'
         str_indent = depth * NUMBER_OF_INDENTS + OFFSET_TO_THE_LEFT
-        for key, value in changeable_value.items():
+        for key, value in value.items():
             if isinstance(value, dict):
                 result.append(f'{str_indent}{SIGN["unchanged"]}{key}: '
                               f'{transform_to_str(value, depth + 1)}')
             else:
                 result.append(f'{str_indent}{SIGN["unchanged"]}{key}: {value}')
-        return '{\n' + '\n'.join(result) + f'\n{close_indent}'
-    dict_changes = {
-        bool: str(changeable_value).lower(),
+        result.append(close_indent)
+        return '\n'.join(result)
+    types_map = {
+        bool: str(value).lower(),
         type(None): 'null',
     }
-    return dict_changes.get(type(changeable_value), str(changeable_value))
+    return types_map.get(type(value), str(value))
 
 
 def get_format_stylish(current_value, depth=START_DEPTH):
-    result = []
+    result = ['{']
     close_indent = depth * NUMBER_OF_INDENTS + '}'
     str_indent = depth * NUMBER_OF_INDENTS + OFFSET_TO_THE_LEFT
     for key, value in current_value.items():
@@ -53,4 +54,5 @@ def get_format_stylish(current_value, depth=START_DEPTH):
                     unch_value = value["value"]
                     result.append(f'{str_indent}{SIGN["unchanged"]}{key}: '
                                   f'{transform_to_str(unch_value, depth + 1)}')
-    return '{\n' + '\n'.join(result) + f'\n{close_indent}'
+    result.append(close_indent)
+    return '\n'.join(result)
